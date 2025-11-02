@@ -1,45 +1,30 @@
-# Binaries
-bin/
-server
+# If you prefer the allow list template instead of the deny list, see community template:
+# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+#
+# Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
 
-# Test binary
+# Test binary, built with `go test -c`
 *.test
 
-# Output of the go coverage tool
+# Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Go workspace file
-go.work.sum
+# Dependency directories (remove the comment below to include it)
+# vendor/
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# OS
+# env file
+.env
+/.idea
+/.vscode
+/.cursor
 .DS_Store
-Thumbs.db
 
-# Build artifacts
-dist/
-build/
-
-# Temporary files
-tmp/
-temp/
-*.log
-
-# Node modules (if any)
-node_modules/
-
-# Compiled protobuf files should be committed (they're generated but part of the repo)
-# But we can regenerate them, so uncomment if needed:
-# shared/pkg/proto/
-
+/bin
+node_modules
+/shared/api/bundles/
+/coverage/
