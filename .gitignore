@@ -14,9 +14,32 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Compiled binaries
-/server
+# Compiled binaries and executables
+# Standalone executables without extension (Go build output)
+server
 **/server
+inventory/server
+payment/server
+order/server
+
+# Executables in module directories (if built in subdirectories)
+inventory/*/server
+order/*/server
+payment/*/server
+assembly/*/server
+platform/*/server
+iam/*/server
+notification/*/server
+
+# Build artifacts
+*.o
+*.a
+*.lib
+
+# Temporary build files
+*.tmp
+*.bak
+*~
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
