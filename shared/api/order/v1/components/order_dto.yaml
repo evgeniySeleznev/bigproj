@@ -1,0 +1,27 @@
+type: object
+properties:
+  order_uuid:
+    type: string
+    format: uuid
+  user_uuid:
+    type: string
+    format: uuid
+  part_uuids:
+    type: array
+    items:
+      type: string
+      format: uuid
+  total_price:
+    type: number
+    format: double
+  transaction_uuid:
+    type: string
+    format: uuid
+    nullable: true
+  payment_method:
+    type: string
+    nullable: true
+  status:
+    $ref: '#/components/schemas/OrderStatus'
+
+

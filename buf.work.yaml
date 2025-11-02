@@ -1,0 +1,6 @@
+version: v2
+
+directories:
+  - shared/proto
+
+

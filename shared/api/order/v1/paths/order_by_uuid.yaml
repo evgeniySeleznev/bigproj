@@ -1,0 +1,27 @@
+get:
+  operationId: getOrders
+  summary: Получение информации о заказе
+  description: Возвращает информацию о заказе по UUID
+  parameters:
+    - $ref: '#/components/parameters/OrderUuid'
+  responses:
+    '200':
+      description: Информация о заказе
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetOrderResponse'
+    '404':
+      description: Заказ не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    '500':
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+
+

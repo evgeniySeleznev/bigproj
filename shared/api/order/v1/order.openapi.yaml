@@ -1,0 +1,60 @@
+openapi: 3.1.0
+info:
+  title: Order Service API
+  version: v1
+  description: API для управления заказами на космические корабли
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/v1/orders:
+    $ref: './paths/orders.yaml'
+  /api/v1/orders/{order_uuid}:
+    $ref: './paths/order_by_uuid.yaml'
+  /api/v1/orders/{order_uuid}/pay:
+    $ref: './paths/order_pay.yaml'
+  /api/v1/orders/{order_uuid}/cancel:
+    $ref: './paths/order_cancel.yaml'
+
+components:
+  schemas:
+    OrderStatus:
+      $ref: './components/enums/order_status.yaml'
+    PaymentMethod:
+      $ref: './components/enums/payment_method.yaml'
+    CreateOrderRequest:
+      $ref: './components/create_order_request.yaml'
+    CreateOrderResponse:
+      $ref: './components/create_order_response.yaml'
+    PayOrderRequest:
+      $ref: './components/pay_order_request.yaml'
+    PayOrderResponse:
+      $ref: './components/pay_order_response.yaml'
+    GetOrderResponse:
+      $ref: './components/get_order_response.yaml'
+    OrderDTO:
+      $ref: './components/order_dto.yaml'
+    GenericError:
+      $ref: './components/errors/generic_error.yaml'
+    NotFoundError:
+      $ref: './components/errors/not_found_error.yaml'
+    ConflictError:
+      $ref: './components/errors/conflict_error.yaml'
+    BadRequestError:
+      $ref: './components/errors/bad_request_error.yaml'
+    InternalServerError:
+      $ref: './components/errors/internal_server_error.yaml'
+    BadGatewayError:
+      $ref: './components/errors/bad_gateway_error.yaml'
+  
+  parameters:
+    OrderUuid:
+      $ref: './params/order_uuid.yaml'
+
+x-ogen:
+  target: pkg/openapi/order/v1
+  package: orderv1
+
+

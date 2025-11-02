@@ -1,0 +1,10 @@
+type: object
+required:
+  - payment_method
+properties:
+  payment_method:
+    type: string
+    $ref: '#/components/schemas/PaymentMethod'
+    description: Способ оплаты
+
+

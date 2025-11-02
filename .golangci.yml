@@ -1,0 +1,41 @@
+run:
+  timeout: 5m
+
+linters:
+  enable:
+    - errcheck
+    - gosec
+    - govet
+    - golint
+    - staticcheck
+    - unused
+    - gofmt
+    - goimports
+    - dupl
+    - gocritic
+    - revive
+    - gocyclo
+    - ineffassign
+    - misspell
+    - unconvert
+    - unparam
+
+linters-settings:
+  errcheck:
+    check-asserts: true
+  gocritic:
+    enabled-checks:
+      - diagnostic
+      - experimental
+      - performance
+      - style
+  revive:
+    rules:
+      - name: exported
+        severity: warning
+      - name: if-return
+        severity: warning
+      - name: rangeValInClosure
+        severity: warning
+
+

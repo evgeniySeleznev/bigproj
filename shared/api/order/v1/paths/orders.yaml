@@ -1,0 +1,37 @@
+post:
+  operationId: postOrders
+  summary: Создание нового заказа
+  description: Создает новый заказ на основе выбранных пользователем деталей
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/CreateOrderRequest'
+  responses:
+    '201':
+      description: Заказ успешно создан
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateOrderResponse'
+    '400':
+      description: Ошибка запроса
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+    '502':
+      description: Ошибка шлюза
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadGatewayError'
+    '500':
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+
+

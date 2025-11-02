@@ -1,0 +1,39 @@
+post:
+  operationId: postOrdersPay
+  summary: Оплата заказа
+  description: Обрабатывает оплату ранее созданного заказа
+  parameters:
+    - $ref: '#/components/parameters/OrderUuid'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/PayOrderRequest'
+  responses:
+    '200':
+      description: Оплата успешно обработана
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PayOrderResponse'
+    '404':
+      description: Заказ не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    '502':
+      description: Ошибка шлюза
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadGatewayError'
+    '500':
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+
+

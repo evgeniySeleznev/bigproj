@@ -1,0 +1,29 @@
+post:
+  operationId: postOrdersCancel
+  summary: Отмена заказа
+  description: Отменяет ранее созданный заказ
+  parameters:
+    - $ref: '#/components/parameters/OrderUuid'
+  responses:
+    '204':
+      description: Заказ успешно отменен
+    '404':
+      description: Заказ не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    '409':
+      description: Заказ уже оплачен и не может быть отменен
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConflictError'
+    '500':
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+
+

@@ -1,0 +1,10 @@
+type: object
+properties:
+  code:
+    type: integer
+    example: 409
+  message:
+    type: string
+    example: "Order already paid and cannot be cancelled"
+
+

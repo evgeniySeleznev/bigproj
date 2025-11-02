@@ -1,0 +1,45 @@
+# Binaries
+bin/
+server
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work.sum
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+*.log
+
+# Node modules (if any)
+node_modules/
+
+# Compiled protobuf files should be committed (they're generated but part of the repo)
+# But we can regenerate them, so uncomment if needed:
+# shared/pkg/proto/
+

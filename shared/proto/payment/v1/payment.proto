@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package payment.v1;
+
+option go_package = "github.com/evgeniyseleznev/bigproj/shared/pkg/proto/payment/v1;paymentv1";
+
+// PaymentService предоставляет API для обработки платежей
+service PaymentService {
+  // PayOrder обрабатывает оплату заказа
+  rpc PayOrder(PayOrderRequest) returns (PayOrderResponse);
+}
+
+// PaymentMethod представляет способ оплаты
+enum PaymentMethod {
+  PAYMENT_METHOD_UNSPECIFIED = 0;
+  PAYMENT_METHOD_CARD = 1;
+  PAYMENT_METHOD_SBP = 2;
+  PAYMENT_METHOD_CREDIT_CARD = 3;
+  PAYMENT_METHOD_INVESTOR_MONEY = 4;
+}
+
+// PayOrderRequest запрос на оплату заказа
+message PayOrderRequest {
+  string order_uuid = 1;
+  string user_uuid = 2;
+  PaymentMethod payment_method = 3;
+}
+
+// PayOrderResponse ответ на запрос оплаты
+message PayOrderResponse {
+  string transaction_uuid = 1;
+}
+
+
