@@ -261,6 +261,49 @@ tasks:
     status:
       - test -x {{.GRPCURL}}
 
+  start:
+    desc: "🚀 Запуск всех микросервисов (inventory, payment, order)"
+    summary: |
+      Запускает все три микросервиса в фоновом режиме:
+      - Inventory Service: gRPC на порту :50051
+      - Payment Service: gRPC на порту :50052
+      - Order Service: HTTP на порту :8080
+    cmds:
+      - |
+        echo "🚀 Запускаем все сервисы..."
+        
+        # Запуск Inventory Service (gRPC :50051)
+        (cd inventory && go run cmd/server/main.go > /tmp/inventory.log 2>&1) &
+        INVENTORY_PID=$!
+        echo "✅ Inventory Service запущен (PID: $INVENTORY_PID) на порту :50051"
+        echo "   Логи: tail -f /tmp/inventory.log"
+        
+        sleep 1
+        
+        # Запуск Payment Service (gRPC :50052)
+        (cd payment && go run cmd/server/main.go > /tmp/payment.log 2>&1) &
+        PAYMENT_PID=$!
+        echo "✅ Payment Service запущен (PID: $PAYMENT_PID) на порту :50052"
+        echo "   Логи: tail -f /tmp/payment.log"
+        
+        sleep 1
+        
+        # Запуск Order Service (HTTP :8080)
+        (cd order && go run cmd/server/main.go > /tmp/order.log 2>&1) &
+        ORDER_PID=$!
+        echo "✅ Order Service запущен (PID: $ORDER_PID) на порту :8080"
+        echo "   Логи: tail -f /tmp/order.log"
+        
+        sleep 2
+        
+        echo ""
+        echo "📋 Все сервисы запущены!"
+        echo "   Inventory Service: gRPC :50051"
+        echo "   Payment Service:   gRPC :50052"
+        echo "   Order Service:     HTTP :8080"
+        echo ""
+        echo "Для остановки выполните: pkill -f 'go run cmd/server/main.go'"
+
   test-api:
     desc: "🧪 Запуск тестов для проверки API микросервисов"
     deps: [ grpcurl:install ]
