@@ -152,7 +152,9 @@ func (h *OrderHandler) PostOrders(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		if encodeErr := json.NewEncoder(w).Encode(map[string]string{"error": err.Error()}); encodeErr != nil {
+			log.Printf("error encoding error response: %v", encodeErr)
+		}
 		return
 	}
 
@@ -160,14 +162,18 @@ func (h *OrderHandler) PostOrders(w http.ResponseWriter, r *http.Request) {
 	if req.UserUUID == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "user_uuid is required"})
+		if encodeErr := json.NewEncoder(w).Encode(map[string]string{"error": "user_uuid is required"}); encodeErr != nil {
+			log.Printf("error encoding error response: %v", encodeErr)
+		}
 		return
 	}
 
 	if len(req.PartUUIDs) == 0 {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "part_uuids is required and cannot be empty"})
+		if encodeErr := json.NewEncoder(w).Encode(map[string]string{"error": "part_uuids is required and cannot be empty"}); encodeErr != nil {
+			log.Printf("error encoding error response: %v", encodeErr)
+		}
 		return
 	}
 
@@ -181,7 +187,9 @@ func (h *OrderHandler) PostOrders(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error calling InventoryService: %v", err)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadGateway)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Bad Gateway"})
+		if encodeErr := json.NewEncoder(w).Encode(map[string]string{"error": "Bad Gateway"}); encodeErr != nil {
+			log.Printf("error encoding error response: %v", encodeErr)
+		}
 		return
 	}
 
@@ -195,7 +203,9 @@ func (h *OrderHandler) PostOrders(w http.ResponseWriter, r *http.Request) {
 		if !partsFound[uuid] {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusBadRequest)
-			json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("part %s not found", uuid)})
+			if encodeErr := json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("part %s not found", uuid)}); encodeErr != nil {
+				log.Printf("error encoding error response: %v", encodeErr)
+			}
 			return
 		}
 	}
@@ -352,7 +362,7 @@ func main() {
 	})
 
 	server := &http.Server{
-		Addr:              net.JoinHostPort("localhost", httpPort),
+		Addr:              net.JoinHostPort("0.0.0.0", httpPort),
 		Handler:           r,
 		ReadHeaderTimeout: 5 * time.Second,
 	}
